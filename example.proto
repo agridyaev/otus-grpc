@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package example;
+
+message CreateEmployeeRequest {
+  string first_name = 1;
+  string second_name = 2;
+  int32 age = 3;
+}
+
+message CreateEmployeeResponse {
+  int32 id = 1;
+}
+
+message GetEmployeeRequest {
+  int32 id = 1;
+}
+
+message GetEmployeeResponse {
+  int32 id = 1;
+  string first_name = 2;
+  string second_name = 3;
+  int32 age = 4;
+}
+
+message DeleteEmployeeRequest {
+  int32 id = 1;
+}
+
+message DeleteEmployeeResponse {
+  int32 id = 1;
+}
+
+service EmployeesAPI {
+  rpc CreateEmployee(CreateEmployeeRequest) returns (CreateEmployeeResponse);
+  rpc GetEmployee(GetEmployeeRequest) returns (GetEmployeeResponse);
+  rpc DeleteEmployee(DeleteEmployeeRequest) returns (DeleteEmployeeResponse);
+}
