@@ -7,4 +7,3 @@
 # Python stub and server code should be placed on the filesystem
 
 python3 -m grpc_tools.protoc -I . --python_out=. --grpc_python_out=. example.proto
-
