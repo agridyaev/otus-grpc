@@ -2,3 +2,4 @@ grpcio==1.57.0            # provides the core functionality of gRPC
 grpcio-reflection==1.57.0 # provides reflection mechanism for gRPC
 grpcio-tools==1.57.0      # offers tools for working with gRPC, including code generation
 protobuf==4.24.0          # provides the implementation of Protocol Buffers (data serialization format)
+pytest==8.1.1
