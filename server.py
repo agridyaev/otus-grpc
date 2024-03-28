@@ -1,3 +1,4 @@
+import signal
 import grpc
 from grpc_reflection.v1alpha import reflection
 import example_pb2
@@ -44,11 +45,18 @@ class EmployeeServicer(example_pb2_grpc.EmployeesAPIServicer):
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     example_pb2_grpc.add_EmployeesAPIServicer_to_server(EmployeeServicer(), server)
+
+    def handle_sigint(sig, frame):
+        print("Caught SIGINT, shutting down server...")
+        server.stop(0)
+    signal.signal(signal.SIGINT, handle_sigint)
+
     service_names = (
         example_pb2.DESCRIPTOR.services_by_name['EmployeesAPI'].full_name,
         reflection.SERVICE_NAME,
     )
     reflection.enable_server_reflection(service_names, server)
+
     server.add_insecure_port('[::]:50051')
     server.start()
     print("Server listening on :50051")
