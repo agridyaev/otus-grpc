@@ -11,7 +11,9 @@ class EmployeeServicer(example_pb2_grpc.EmployeesAPIServicer):
     count = 1
 
     def CreateEmployee(self, request, context):
-        e = {'first_name': request.first_name, 'second_name': request.second_name, 'age': request.age}
+        e = {'first_name': request.first_name,
+             'second_name': request.second_name,
+             'age': request.age}
         print(f'Add employee: "{e}"')
 
         e['id'] = EmployeeServicer.count
@@ -35,6 +37,7 @@ class EmployeeServicer(example_pb2_grpc.EmployeesAPIServicer):
             raise grpc.RpcError(f'Employee with id "{request.id}" not exists')
 
         e = EmployeeServicer.employees.pop(request.id)
+        EmployeeServicer.count -= 1
         return example_pb2.DeleteEmployeeResponse(id=e['id'])
 
 
